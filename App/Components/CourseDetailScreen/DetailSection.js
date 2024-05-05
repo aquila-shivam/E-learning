@@ -4,7 +4,7 @@ import Colors from '../../Utils/Colors'
 import OptionItem from './OptionItem'
 import { StyleSheet } from 'react-native'
 
-export default function DetailSection({ course,enrollCourse }) {
+export default function DetailSection({ course,enrollCourse,userEnrolledCourse}) {
   return (
     <View style={{
       padding: 10,
@@ -41,6 +41,8 @@ export default function DetailSection({ course,enrollCourse }) {
         </View>
 
         <View style={{ display: 'flex', flexDirection: 'row', gap:20, justifyContent:'space-evenly' }}>
+          
+          {userEnrolledCourse?.length == 0 ?
           <TouchableOpacity
             style={{
             padding: 15,
@@ -55,7 +57,8 @@ export default function DetailSection({ course,enrollCourse }) {
               textAlign: 'center',
               fontSize: 17
             }}>Enrol For Free</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> : null
+          }
 
           <TouchableOpacity style={{
             padding: 15,

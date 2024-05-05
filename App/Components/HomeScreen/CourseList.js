@@ -16,7 +16,6 @@ export default function CourseList({ level }) {
 
     const getCourses = () => {
         getCourseList(level).then((res) => {
-            console.log("Res :- ", res);
             setCourseList(res?.courses);
         });
     }

@@ -5,4 +5,5 @@ export default{
     BLACK : '#000',
     GRAY : '#808080',
     SECONDARY : '#19BDFF',
+    GREEN : "#008000"
 }
