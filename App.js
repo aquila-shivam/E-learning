@@ -5,8 +5,12 @@ import LoginScreen from './App/Screen/LoginScreen';
 import { ClerkProvider,SignedIn,SignedOut } from '@clerk/clerk-expo';
 import { NavigationContainer } from '@react-navigation/native';
 import TabNavigation from './App/Navigations/TabNavigation';
+import { CompleteChapterContext } from './App/Context/CompleteChapterContext';
+import { useState } from 'react';
 
 export default function App() {
+
+    const [isChapterComplete,setIsChapterComplete] = useState(false);
 
     const [fontsLoaded] = useFonts({
     'outfit': require('./assets/fonts/Outfit-Regular.ttf'),
@@ -25,6 +29,7 @@ export default function App() {
     <ClerkProvider publishableKey={"pk_test_cmVuZXdpbmctbWFsYW11dGUtMTIuY2xlcmsuYWNjb3VudHMuZGV2JA"}>
       <StatusBar barStyle="dark-content"
         backgroundColor="#fff"/>
+      <CompleteChapterContext.Provider value={{isChapterComplete,setIsChapterComplete}}>
       <View style={styles.container}>
         <SignedIn>
           <NavigationContainer>
@@ -35,6 +40,7 @@ export default function App() {
         <LoginScreen/>
         </SignedOut>
       </View>
+      </CompleteChapterContext.Provider>
     </ClerkProvider>
   );
 }

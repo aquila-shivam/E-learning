@@ -1,5 +1,5 @@
 import { View, Text, TouchableOpacity,ToastAndroid } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import DetailSection from '../Components/CourseDetailScreen/DetailSection';
@@ -7,12 +7,15 @@ import ChapterSection from '../Components/CourseDetailScreen/ChapterSection';
 import { ScrollView } from 'react-native-gesture-handler';
 import { useUser } from '@clerk/clerk-expo';
 import { enrolledCourse,getUserEnrolledCourse } from '../Services';
+import { CompleteChapterContext } from '../Context/CompleteChapterContext';
 
 export default function CourseDetailScreen() {
   const [userEnrolledCourse,setUserEnrolledCourse] = useState([]);
   const navigate = useNavigation();
   const params = useRoute().params;
   const {user} = useUser();
+
+  const {isChapterComplete} = useContext(CompleteChapterContext);
 
 
   useEffect(() =>{
@@ -21,6 +24,12 @@ export default function CourseDetailScreen() {
       GetUserEnrolledCourse();
     }
   },[params.course,user])
+
+
+  useEffect(()=>{
+    isChapterComplete && GetUserEnrolledCourse();
+  },[isChapterComplete])
+
 
   const UserEnrollCourse = () =>{
     enrolledCourse(params.course.id,user.primaryEmailAddress.emailAddress).then(res =>{

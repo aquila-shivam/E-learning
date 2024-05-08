@@ -6,5 +6,5 @@ export default{
     GRAY : '#808080',
     SECONDARY : '#19BDFF',
     GREEN : "#0BAE1B",
-    LIGHT_GREEN : "hsba(119, 62%, 91%, 0.11)"
+    LIGHT_GREEN : "#5AE8571C"
 }
