@@ -4,14 +4,21 @@ import Content from '../Components/ChapterContent/Content'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { MarkChapterCompleted } from '../Services';
 import { CompleteChapterContext } from '../Context/CompleteChapterContext';
+import { ScrollView } from 'react-native-gesture-handler';
+import { useUser } from '@clerk/clerk-expo';
+import { UserPointContext } from '../Context/UserPointContext';
 
 export default function ChapterContentScreen() {
   const params = useRoute().params;
   const navigation = useNavigation();
   const {setIsChapterComplete} = useContext(CompleteChapterContext);
+  const user = useUser();
+  const {userPoints} = useContext(UserPointContext);
 
   const onChapterFinish = ()=>{
-    MarkChapterCompleted(params.chapterId,params.userCourseRecordId).then(res=>{
+    const totalPoints = Number(userPoints)+params.content?.length*10
+    MarkChapterCompleted(params.chapterId,params.userCourseRecordId,
+      user.primaryEmailAddress.emailAddress,totalPoints).then(res=>{
         if(res){
           ToastAndroid.show('Congratulation!!!',ToastAndroid.LONG);
           setIsChapterComplete(true);
@@ -23,10 +30,10 @@ export default function ChapterContentScreen() {
   }
 
   return params.content && (
-    <View>
+    <ScrollView>
       <Content content = {params.content}
         onChapterFinish={()=>onChapterFinish()}
       />
-    </View>
+    </ScrollView>
   )
 }

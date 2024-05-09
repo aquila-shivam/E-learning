@@ -2,6 +2,44 @@ import { request, gql } from 'graphql-request'
 
 const MASTER_URL = 'https://api-ap-south-1.hygraph.com/v2/clrg1l21d0dd001w93durt840/master'
 
+
+export const createNewUser = async(userName,email,profileImageUrl) =>{
+
+  const mutationQuery = gql`
+  mutation CreateNewUser {
+    upsertUserDetail(
+      upsert: {create: {email: `+email+`, point: 10, profileImage: `+profileImageUrl+`, userName:`+userName+`}
+      ,update: {email: `+email+`, profileImage: `+profileImageUrl+`, userName: `+userName+`}}
+      where: {email: `+email+`}
+    ) {
+      id
+    }
+    publishUserDetail(where: {email: `+email+`}) {
+      id
+    }
+  }
+  `
+  const result = await request(MASTER_URL, mutationQuery);
+  return result;
+}
+
+
+export const getUserDetail = async(email)=>{
+
+  const query = gql`
+  query getUserDetails {
+    userDetail(where: {email: `+email+`}) {
+      point
+    }
+  `
+  const result = await request(MASTER_URL, query);
+  return result;
+}
+
+
+
+
+
 export const getCourseList = async (level) => {
 
   const query = gql`
@@ -92,7 +130,7 @@ export const getUserEnrolledCourse = async (courseId, userEmail) => {
 }
 
 
-export const MarkChapterCompleted = async(chapterId,recordId)=>{
+export const MarkChapterCompleted = async(chapterId,recordId,userEmail,points)=>{
   const mutationQuery = gql`
   mutation markChapterCompleted {
     updateUserEnrolledCourse(
@@ -108,6 +146,14 @@ export const MarkChapterCompleted = async(chapterId,recordId)=>{
         }
       }
     }
+
+    updateUserDetail(where: {email: `+userEmail+`}, data: {point: `+points+`}) {
+      point
+    }
+    publishUserDetail(where: {email: `+userEmail+`}) {
+      id
+    }
+
   }  
   `
 

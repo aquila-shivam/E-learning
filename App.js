@@ -6,11 +6,14 @@ import { ClerkProvider,SignedIn,SignedOut } from '@clerk/clerk-expo';
 import { NavigationContainer } from '@react-navigation/native';
 import TabNavigation from './App/Navigations/TabNavigation';
 import { CompleteChapterContext } from './App/Context/CompleteChapterContext';
+import { UserPointContext } from './App/Context/UserPointContext';
 import { useState } from 'react';
 
 export default function App() {
 
     const [isChapterComplete,setIsChapterComplete] = useState(false);
+    const [userPoints,setUserPoints] = useState(10);
+  
 
     const [fontsLoaded] = useFonts({
     'outfit': require('./assets/fonts/Outfit-Regular.ttf'),
@@ -29,6 +32,7 @@ export default function App() {
     <ClerkProvider publishableKey={"pk_test_cmVuZXdpbmctbWFsYW11dGUtMTIuY2xlcmsuYWNjb3VudHMuZGV2JA"}>
       <StatusBar barStyle="dark-content"
         backgroundColor="#fff"/>
+      <UserPointContext.Provider value={{userPoints,setUserPoints}}>
       <CompleteChapterContext.Provider value={{isChapterComplete,setIsChapterComplete}}>
       <View style={styles.container}>
         <SignedIn>
@@ -41,6 +45,7 @@ export default function App() {
         </SignedOut>
       </View>
       </CompleteChapterContext.Provider>
+      </UserPointContext.Provider>
     </ClerkProvider>
   );
 }
