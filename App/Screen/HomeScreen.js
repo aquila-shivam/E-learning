@@ -9,30 +9,42 @@ import { UserPointContext } from '../Context/UserPointContext'
 
 
 export default function HomeScreen() {
+  
   const {user} = useUser();
+
   useEffect(()=>{
-    user&&createUser();
+    user && createUser();
   },[user]);
+ 
 
   const {setUserPoints} = useContext(UserPointContext);
 
-  const createUser = ()=>{
-    if(user){
-      createNewUser(user.fullName,user.primaryEmailAddress.emailAddress,user.imageUrl)
-      .then(res=>{
-        if(res){
-          getUser();
-        }
-      })
+  const createUser = () => {
+    if (user) {
+      createNewUser(user.fullName,user.primaryEmailAddress.emailAddress, user.imageUrl)
+        .then(res => {
+          if (res) {
+            getUser();
+            console.log("User Created");
+          } else {
+            console.log("No response or user creation failed.");
+          }
+        })
+        .catch(error => {
+          console.error("Error creating user:", error);
+        });
     }
-  }
+  };
+  
 
   const getUser = ()=>{
     getUserDetail(user.primaryEmailAddress.emailAddress)
     .then(res=>{
-      const point = res.userDetail?.point
-      console.log("--",);
+      const point = res.userDetail?.point;
+      console.log("point",point);
       setUserPoints(point);
+    }).catch(error=>{
+      console.log(error);
     })
   }
 

@@ -2,7 +2,7 @@ import { View, Text } from 'react-native'
 import React from 'react'
 import Colors from '../../Utils/Colors'
 import { Image } from 'react-native'
-import { Ionicons } from '@expo/vector-icons';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 export default function CourseItem({ item }) {
     return (
@@ -47,7 +47,7 @@ export default function CourseItem({ item }) {
                             gap: 5,
                             marginTop: 5
                         }}>
-                            <Ionicons name="md-time-outline" size={18} color="black" />
+                            <Ionicons name="time-outline" size={18} color="black" />
                             <Text style={{ fontFamily: 'outfit' }}>{item.time} Hr</Text>
                         </View>
                     </View>

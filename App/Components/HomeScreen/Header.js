@@ -43,7 +43,7 @@ export default function Header() {
         borderRadius:99,
       }]}>
         <TextInput placeholder='Search Courses' style={{ fontFamily: 'outfit', fontSize: 18 }} />
-        <FontAwesome name="search" size={24} color='black' />
+        <FontAwesome name="search" size={24} color='black' style={{marginTop:10,marginRight:10}}  />
       </View>
     </View>
   )

@@ -72,7 +72,7 @@ export default function ChapterSection({ chapterList, userEnrolledCourse }) {
             </View>
 
             {userEnrolledCourse.length === 0 ?
-              <Ionicons name="md-lock-closed" size={25} color={Colors.GRAY} />
+              <Ionicons name="lock-closed" size={25} color={Colors.GRAY} />
               : (isChapterCompleted(item.id)
                 ? <Ionicons name="play" size={25} color={Colors.GREEN} />
                 : <Ionicons name="play" size={25} color={Colors.GRAY} />)

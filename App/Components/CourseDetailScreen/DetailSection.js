@@ -28,7 +28,7 @@ export default function DetailSection({ course,enrollCourse,userEnrolledCourse})
         <View>
           <View style={styles.rowStyle}>
             <OptionItem icon={'book-outline'} value={course?.chapters?.length + " Chapters"} />
-            <OptionItem icon={'md-time-outline'} value={course?.time + " Hr"} />
+            <OptionItem icon={'time-outline'} value={course?.time + " Hr"} />
           </View>
           <View style={styles.rowStyle}>
             <OptionItem icon={'person-circle-outline'} value={course?.author} />

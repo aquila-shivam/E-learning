@@ -12,13 +12,18 @@ export default function ChapterContentScreen() {
   const params = useRoute().params;
   const navigation = useNavigation();
   const {setIsChapterComplete} = useContext(CompleteChapterContext);
-  const user = useUser();
+  const {user} = useUser();
   const {userPoints} = useContext(UserPointContext);
 
   const onChapterFinish = ()=>{
-    const totalPoints = Number(userPoints)+params.content?.length*10
-    MarkChapterCompleted(params.chapterId,params.userCourseRecordId,
-      user.primaryEmailAddress.emailAddress,totalPoints).then(res=>{
+    const totalPoints = Number(userPoints)+(params.content?.length*10);
+    const chapterId = params.chapterId;
+    const userCourseRecordId = params.userCourseRecordId;
+    const userEmail = user.primaryEmailAddress.emailAddress;
+    MarkChapterCompleted(chapterId,
+      userCourseRecordId,
+      userEmail,
+      totalPoints).then(res=>{
         if(res){
           ToastAndroid.show('Congratulation!!!',ToastAndroid.LONG);
           setIsChapterComplete(true);

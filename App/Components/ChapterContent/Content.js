@@ -30,6 +30,7 @@ export default function Content({content,onChapterFinish}) {
         showsHorizontalScrollIndicator={false}
         ref={(ref)=>(contentRef=ref)}
         renderItem={({item,index})=>(
+          <View>
           <ScrollView style={{width:Dimensions.get('screen').width , padding:20,marginBottom:40}}>
               <Text style={{
                 fontFamily:'outfit-medium',
@@ -57,10 +58,9 @@ export default function Content({content,onChapterFinish}) {
                 </Text>
               </TouchableOpacity>
           </ScrollView>
+          </View>
         )}
       />
-
-
     </ScrollView>
   )
 }
