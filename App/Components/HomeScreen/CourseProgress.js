@@ -25,6 +25,7 @@ export default function CourseProgress() {
     }
 
     return (
+        progressCourseList && progressCourseList.length > 0 &&
         <View>
             <SubHeading text={"In Progress"} color={Colors.WHITE} />
 
